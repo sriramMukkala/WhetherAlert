@@ -34,8 +34,6 @@ public class AddPolicyHoldersServlet extends HttpServlet {
 		
 		UploadPolicyHoldersResponse uploadPolicyHoldersResponse = service.insertPolicyHolders(part);
 
-		System.out.println("Upload completed.");
-
 		Gson gson = new GsonBuilder().create();
 		String payloadStr = gson.toJson(uploadPolicyHoldersResponse);
 		

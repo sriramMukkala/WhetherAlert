@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.servlet.http.Part;
 
+import com.cloudant.client.api.model.Response;
 import com.ey.insurancealerts.dao.GenericDAO;
 import com.ey.insurancealerts.dao.GenericDAOImpl;
-import com.ey.insurancealerts.models.BaseEntity;
 import com.ey.insurancealerts.models.UserInfo;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -36,9 +36,25 @@ public class UploadPolicyHoldersService {
 			userInfoList.add(userInfo);
 		}
 		
-		dao.createMany(userInfoList);
+		List<Response> responses = dao.createMany(userInfoList);
 		
-		return null;
+		for(Response response : responses) {
+			System.out.println(response.getStatusCode());
+		}
+
+		UploadPolicyHoldersResponse uploadPolicyHoldersResponse = new UploadPolicyHoldersResponse();
+		uploadPolicyHoldersResponse.setStatus("Success");
+		uploadPolicyHoldersResponse.setRecordsDiscarded(
+				(int)responses.stream().filter(response -> response.getStatusCode() >= 400).count());
+		uploadPolicyHoldersResponse.setRecordsUploaded(
+				(int)responses.stream()
+					.filter(response -> response.getStatusCode() == 200
+											|| response.getStatusCode() == 201).count());
+		uploadPolicyHoldersResponse.setTotalRecords(responses.size());
+		
+				
+		
+		return uploadPolicyHoldersResponse;
 		
 	}
 

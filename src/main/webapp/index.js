@@ -101,7 +101,7 @@ function uploadFile(node) {
 
 	startProgressIndicator(newRow);
 
-	xhrAttach("attach?"+queryParams, form, function(item){
+	xhrAttach("addpolicyholders?"+queryParams, form, function(item){
 		console.log('Item id - ' + item.id);
 		console.log('attached: ', item);
 		row.setAttribute('data-id', item.id);

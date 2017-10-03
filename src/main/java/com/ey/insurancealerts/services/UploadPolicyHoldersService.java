@@ -13,7 +13,7 @@ import com.ey.insurancealerts.dao.GenericDAO;
 import com.ey.insurancealerts.dao.GenericDAOImpl;
 import com.ey.insurancealerts.models.UserInfo;
 
-public class UserInfoServices {
+public class UploadPolicyHoldersService {
 
 	GenericDAO dao = new GenericDAOImpl();
 

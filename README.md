@@ -10,7 +10,7 @@ This application uses Java Cloudant Starter from Bluemix as the base.
 
 In the local environment, WLP can be used to test application. Cloudant DB on Bluemix will used as the datastore. 
 
-SMS alerts will be usent using cloud communications platform such as Twilio.
+SMS alerts will be sent using cloud communications platform such as Twilio.
 
 ## Build & Runtime Environments:
 

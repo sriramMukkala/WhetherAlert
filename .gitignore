@@ -1,0 +1,3 @@
+target/*
+!target/JavaCloudantApp.war
+/target/

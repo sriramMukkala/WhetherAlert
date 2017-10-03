@@ -33,8 +33,8 @@ public class GenericDAOImpl implements GenericDAO<BaseEntity, String> {
 	}
 	
 	@Override
-	public Response createMany(List<BaseEntity> eentities) {
-		return db.save(eentities);
+	public Response createMany(List<BaseEntity> entities) {
+		return db.save(entities);
 	}
 
 }

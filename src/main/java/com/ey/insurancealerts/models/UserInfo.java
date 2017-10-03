@@ -55,6 +55,7 @@ public class UserInfo extends BaseEntity {
 
 	public void setPolicyNumber(String policyNumber) {
 		this.policyNumber = policyNumber;
+		super.set_id(policyNumber);
 	}
 	
 }

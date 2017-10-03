@@ -1,6 +1,5 @@
 package com.ey.insurancealerts.services;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,23 +10,36 @@ import javax.servlet.http.Part;
 
 import com.ey.insurancealerts.dao.GenericDAO;
 import com.ey.insurancealerts.dao.GenericDAOImpl;
+import com.ey.insurancealerts.models.BaseEntity;
 import com.ey.insurancealerts.models.UserInfo;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 public class UploadPolicyHoldersService {
 
 	GenericDAO dao = new GenericDAOImpl();
 
-	public void addUser(Part part) throws IOException {
+	public UploadPolicyHoldersResponse insertPolicyHolders(Part part) throws IOException {
+		
 		InputStream inputStream = part.getInputStream();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		String line;
-		StringBuffer sb = new StringBuffer();
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-
+		CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+		List<String[]> allRows = reader.readAll();
+		
 		List<UserInfo> userInfoList = new ArrayList<>();
-		userInfoList.forEach(dao::create);
+		
+		for(String[] userinfo : allRows) {
+			UserInfo userInfo = new UserInfo();
+			userInfo.setCity(userinfo[0]);
+			userInfo.setContactNumber(userinfo[1]);
+			userInfo.setName(userinfo[2]);
+			userInfo.setPolicyNumber(userinfo[3]);
+			userInfoList.add(userInfo);
+		}
+		
+		dao.createMany(userInfoList);
+		
+		return null;
+		
 	}
 
 }

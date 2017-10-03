@@ -8,7 +8,7 @@ public interface GenericDAO<E, T> {
 
 	E create(E e);
 	
-	Response createMany(List<E> entities);
+	List<Response> createMany(List<E> entities);
 	
 	void delete(T id);
 	
